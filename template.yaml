@@ -1,18 +1,18 @@
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: backstage.io/v1beta3
 kind: Template
 metadata:
-  name: hello-backstage
-  title: Hello Backstage Template
-  description: A simple Backstage template that echoes "Hello, Backstage!"
+  name: hello-template
+  description: A simple template that echoes "Hello"
+  tags:
+    - example
 spec:
-  owner: backstage-team
   type: service
+  parameters:
+    - title: Title
+      required: true
+      description: The title of the service
   steps:
-    - id: echo-step
-      name: Echo Hello Backstage
-      action: shell:execute
-      input:
-        script: |
-          echo "Hello, Backstage!"
-  output:
-    message: "Template run complete."
+    - id: echo-hello
+      action: output
+      params:
+        message: "Hello, {{ parameters.title }}!"
