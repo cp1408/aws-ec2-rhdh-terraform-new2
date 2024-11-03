@@ -1,0 +1,16 @@
+name: Echo Message
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message to echo'
+        required: true
+        default: 'Hello from Backstage!'
+
+jobs:
+  echo_job:
+    runs-on: self-hosted
+    steps:
+      - name: Echo the message
+        run: echo "${{ github.event.inputs.message }}"

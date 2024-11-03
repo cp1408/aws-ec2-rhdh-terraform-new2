@@ -1,19 +1,46 @@
-apiVersion: scaffolder.backstage.io/v1beta3
+#apiVersion: scaffolder.backstage.io/v1beta3
+#kind: Template
+#metadata:
+#  name: hello-backstage
+#  title: Hello Backstage Template
+#  description: A template to echo "Hello, Backstage!"
+#spec:
+#  owner: user@example.com
+#  type: service
+#  steps:
+#    - id: trigger-jenkins
+#      name: Trigger Jenkins Job
+#      action: jenkins:job
+#      input:
+#        jobName: "test"  # Replace with the actual name of your Jenkins job
+#        parameters:
+#          MESSAGE: "{{ parameters.Message }}"
+#      output:
+#        resultUrl: "https://acm-poc.directv.com/job/test"  # Link to the Jenkins job
+apiVersion: backstage.io/v1beta3
 kind: Template
 metadata:
-  name: hello-backstage
-  title: Hello Backstage Template
-  description: A template to echo "Hello, Backstage!"
+  name: github-echo-template
+  description: A template that triggers a GitHub Actions workflow to echo a message
+  tags:
+    - example
+    - github
 spec:
-  owner: user@example.com
   type: service
+  parameters:
+    - title: Message
+      required: true
+      description: The message to echo in GitHub Actions
   steps:
-    - id: trigger-jenkins
-      name: Trigger Jenkins Job
-      action: jenkins:job
+    - id: trigger-github-action
+      name: Trigger GitHub Actions Workflow
+      action: github:actions:workflow-dispatch
       input:
-        jobName: "test"  # Replace with the actual name of your Jenkins job
-        parameters:
-          MESSAGE: "{{ parameters.Message }}"
+        repoUrl: "https://github.com/cp1408/aws-ec2-rhdh-terraform-new2"  # Replace with your actual repo URL
+        workflowId: "echo-message.yml"  # Replace with the actual workflow file name
+        ref: "main"  # The branch to trigger the action on
+        inputs:
+          message: "{{ parameters.Message }}"
       output:
-        resultUrl: "https://acm-poc.directv.com/job/test"  # Link to the Jenkins job
+        resultUrl: "https://github.com/cp1408/aws-ec2-rhdh-terraform-new2/actions"  # Link to GitHub Actions
+
