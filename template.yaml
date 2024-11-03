@@ -17,7 +17,7 @@
 #          MESSAGE: "{{ parameters.Message }}"
 #      output:
 #        resultUrl: "https://acm-poc.directv.com/job/test"  # Link to the Jenkins job
-apiVersion: backstage.io/v1beta3
+apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: github-echo-template
