@@ -1,17 +1,12 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: jenkins-hello-template
-  description: A template that triggers a Jenkins job to echo a message
-  tags:
-    - example
-    - jenkins
+  name: hello-backstage
+  title: Hello Backstage Template
+  description: A template to echo "Hello, Backstage!"
 spec:
+  owner: user@example.com
   type: service
-  parameters:
-    - title: Message
-      required: true
-      description: The message to echo in Jenkins
   steps:
     - id: trigger-jenkins
       name: Trigger Jenkins Job
