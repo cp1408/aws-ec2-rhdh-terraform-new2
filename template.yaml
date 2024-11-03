@@ -1,18 +1,24 @@
-apiVersion: scaffolder.backstage.io/v1beta3
+apiVersion: backstage.io/v1beta3
 kind: Template
 metadata:
-  name: hello-template
-  description: A simple template that echoes "Hello"
+  name: jenkins-hello-template
+  description: A template that triggers a Jenkins job to echo a message
   tags:
     - example
+    - jenkins
 spec:
   type: service
   parameters:
-    - title: Title
+    - title: Message
       required: true
-      description: The title of the service
+      description: The message to echo in Jenkins
   steps:
-    - id: echo-hello
-      action: output
-      params:
-        message: "Hello, {{ parameters.title }}!"
+    - id: trigger-jenkins
+      name: Trigger Jenkins Job
+      action: jenkins:job
+      input:
+        jobName: "test"  # Replace with the actual name of your Jenkins job
+        parameters:
+          MESSAGE: "{{ parameters.Message }}"
+      output:
+        resultUrl: "https://acm-poc.directv.com/job/test"  # Link to the Jenkins job
